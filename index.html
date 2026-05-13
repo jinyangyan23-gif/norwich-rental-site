@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NorwichNest | 英国诺里奇租房</title>
+    <meta name="description" content="诺里奇租房网站原型，支持区域、预算、户型、配置和通勤筛选。" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top"><span>N</span>NorwichNest</a>
+      <nav>
+        <a href="#listings">房源</a>
+        <a href="#areas">区域</a>
+        <a href="#steps">流程</a>
+      </nav>
+      <button class="saved" id="savedToggle" type="button" aria-label="查看收藏">♡ <b id="savedCount">0</b></button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <img src="assets/norwich-hero.png" alt="诺里奇住宅街区与河岸公寓" />
+        <div class="hero-tint"></div>
+        <div class="hero-content">
+          <p class="kicker">Norwich rentals for students and professionals</p>
+          <h1>在诺里奇找到更合适的家</h1>
+          <p>聚合 Golden Triangle、Riverside、Earlham、City Centre 等热门区域房源，按预算、入住时间、通勤方式和生活偏好快速筛选。</p>
+          <form class="search" id="searchForm">
+            <label>区域<select id="areaFilter">
+              <option value="all">全部区域</option>
+              <option>Golden Triangle</option>
+              <option>City Centre</option>
+              <option>Earlham</option>
+              <option>Riverside</option>
+              <option>Thorpe Hamlet</option>
+            </select></label>
+            <label>预算上限<select id="budgetFilter">
+              <option value="9999">不限</option>
+              <option value="650">£650/月以内</option>
+              <option value="850">£850/月以内</option>
+              <option value="1100">£1,100/月以内</option>
+              <option value="1500">£1,500/月以内</option>
+            </select></label>
+            <label>户型<select id="typeFilter">
+              <option value="all">全部户型</option>
+              <option>Studio</option>
+              <option>1 Bed</option>
+              <option>2 Bed</option>
+              <option>House Share</option>
+            </select></label>
+            <button type="submit">搜索</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div><strong>126</strong><span>套在租房源</span></div>
+        <div><strong>18 min</strong><span>UEA 平均公交</span></div>
+        <div><strong>£620</strong><span>合租起租价</span></div>
+        <div><strong>4.8/5</strong><span>看房服务评分</span></div>
+      </section>
+
+      <section class="workspace" id="listings">
+        <aside class="filters">
+          <div class="filter-head"><h2>筛选</h2><button id="resetFilters" type="button">重置</button></div>
+          <fieldset>
+            <legend>入住时间</legend>
+            <label><input type="checkbox" value="Now" name="moveIn" />立即入住</label>
+            <label><input type="checkbox" value="June" name="moveIn" />6 月</label>
+            <label><input type="checkbox" value="September" name="moveIn" />9 月开学季</label>
+          </fieldset>
+          <fieldset>
+            <legend>生活配置</legend>
+            <label><input type="checkbox" value="Bills included" name="amenity" />包账单</label>
+            <label><input type="checkbox" value="Furnished" name="amenity" />家具齐全</label>
+            <label><input type="checkbox" value="Bike storage" name="amenity" />自行车位</label>
+            <label><input type="checkbox" value="Pet friendly" name="amenity" />可养宠物</label>
+          </fieldset>
+          <fieldset>
+            <legend>通勤偏好</legend>
+            <div class="segments">
+              <button class="active" type="button" data-commute="all">全部</button>
+              <button type="button" data-commute="UEA">UEA</button>
+              <button type="button" data-commute="Station">火车站</button>
+            </div>
+          </fieldset>
+        </aside>
+
+        <section class="results">
+          <div class="toolbar">
+            <div><p class="eyebrow">Available homes</p><h2><span id="resultCount">0</span> 套匹配房源</h2></div>
+            <label>排序<select id="sortSelect">
+              <option value="recommended">推荐优先</option>
+              <option value="priceAsc">价格从低到高</option>
+              <option value="priceDesc">价格从高到低</option>
+              <option value="commute">通勤更短</option>
+            </select></label>
+          </div>
+          <div class="grid" id="listingGrid"></div>
+        </section>
+
+        <aside class="side">
+          <div class="map">
+            <span class="pin city">City</span><span class="pin uea">UEA</span><span class="pin river">River</span>
+          </div>
+          <div class="panel"><h2>诺里奇区域速览</h2><p id="areaInsight">选择房源或筛选区域后，这里会显示生活便利度、通勤与预算提示。</p></div>
+          <form class="panel tour" id="tourForm">
+            <h2>预约看房</h2>
+            <label>姓名<input required name="name" placeholder="你的姓名" /></label>
+            <label>联系方式<input required name="contact" placeholder="邮箱或 WhatsApp" /></label>
+            <label>偏好时间<select name="time"><option>工作日傍晚</option><option>周六上午</option><option>线上视频看房</option></select></label>
+            <button type="submit">提交预约</button>
+            <p id="formMessage" role="status"></p>
+          </form>
+        </aside>
+      </section>
+
+      <section class="areas" id="areas">
+        <p class="eyebrow">Neighbourhood guide</p>
+        <h2>按生活方式选区域</h2>
+        <div class="area-grid">
+          <article><h3>Golden Triangle</h3><p>适合 UEA 学生与想要独立咖啡馆、酒吧、安静住宅街的人。</p></article>
+          <article><h3>City Centre</h3><p>步行到商场、市集和办公室方便，公寓选择多，预算略高。</p></article>
+          <article><h3>Riverside</h3><p>靠近火车站、健身房、影院和河岸步道，适合通勤与夜生活。</p></article>
+          <article><h3>Earlham</h3><p>靠近校园与公园，合租房源多，性价比和空间感更友好。</p></article>
+        </div>
+      </section>
+
+      <section class="steps" id="steps">
+        <p class="eyebrow">Renting flow</p>
+        <h2>从筛选到入住</h2>
+        <ol>
+          <li><b>1</b><strong>锁定预算和区域</strong><p>根据课程、工作地点和账单方式筛掉不合适的房源。</p></li>
+          <li><b>2</b><strong>线上确认细节</strong><p>确认押金、council tax、能源评级、合同长度与入住日期。</p></li>
+          <li><b>3</b><strong>预约看房</strong><p>支持现场看房和视频看房，适合还没到英国的租客。</p></li>
+        </ol>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
